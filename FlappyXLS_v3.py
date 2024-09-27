@@ -182,11 +182,11 @@ else:     #Si se selecciona un template seguir con la lógica actual
         
         #Obtener columna y fila para cada campo
         for campo in campos_carta_porte:
-            col1, col2 = st.columns([2,1])
+            col1, col2, col3 = st.columns([0.4,0.4,0.7])
             with col1:
                 #Precargar la columna del template si existe, de lo contrario usar A
                 columna = st.selectbox(
-                    f"Columna para {campo}", 
+                    f"Columna: {campo}", 
                     columnas_disponibles, 
                     index = columnas_disponibles.index(template_actual.get(campo, {}).get('columna','A')),
                     key=f"columna_{campo}"
@@ -196,21 +196,22 @@ else:     #Si se selecciona un template seguir con la lógica actual
             with col2:
                 #Precargar la fila del template si existe, de lo contrario usar 1
                 fila = st.number_input(
-                    f"Fila para {campo}", 
+                    f"Fila: {campo}", 
                     min_value=1, 
                     value=template_actual.get(campo, {}).get('fila', 1),
                     key=f"fila_{campo}"
                     )
 
-            if columna and fila:                
-                #Convertir letra de columna a número de indice (A0,B1,C1)
-                col_num = column_letter_to_index(columna)
-                valor = df.iloc[fila - 2, col_num] #Extraer el valor de la celda
-                st.success(f"{campo}: {valor}")
-                carta_porte_info[campo] = valor 
+            with col3:
+                if columna and fila:                
+                    #Convertir letra de columna a número de indice (A0,B1,C1)
+                    col_num = column_letter_to_index(columna)
+                    valor = df.iloc[fila - 2, col_num] #Extraer el valor de la celda
+                    st.info(f"{valor}")
+                    carta_porte_info[campo] = valor 
 
-            else:
-                st.warning(f"Ingresa la columna y fila para {campo}")
+                else:
+                    st.warning(f"Ingresa la columna y fila para {campo}")
 
             #Guardar la coordenada en el template
             template_data[campo] = {
@@ -219,7 +220,7 @@ else:     #Si se selecciona un template seguir con la lógica actual
             }
 
 
-    col1, col2, col3 = st.columns(3)
+    col1, col2, col3 = st.columns([1,1,1])
     with col1:
         #Botón para guardar el template
         if template_seleccionado == "Nuevo template" and st.button("Guardar nuevo template"):
