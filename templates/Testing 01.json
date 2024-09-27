@@ -1,0 +1,14 @@
+{
+    "Cantidad": {
+        "columna": "B",
+        "fila": 5
+    },
+    "ID unidad embalaje": {
+        "columna": "C",
+        "fila": 5
+    },
+    "Descripción material carga": {
+        "columna": "D",
+        "fila": 5
+    }
+}

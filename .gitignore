@@ -1,0 +1,22 @@
+#Entorno virtual
+venv/
+ENV/
+env/
+.venv/
+
+# Archivos de configuración 
+_pycache_/
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de editor
+.vscode/
+
+# Archivo de logs
+*.log
+
+# Otros documentos
+FlappyXLS.py
+*.xlsx
