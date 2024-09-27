@@ -1,0 +1,2 @@
+FlappyXLS - Extracción de Información desde Excel para Carta Porte
+Bienvenido a FlappyXLS, una aplicación desarrollada con Streamlit que permite extraer información específica de archivos Excel para generar un JSON con los datos necesarios para una Carta Porte. Esta herramienta es útil para empresas que manejan diferentes formatos de Excel y necesitan extraer información de manera eficiente y consistente.
