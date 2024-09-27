@@ -18,5 +18,8 @@ Thumbs.db
 *.log
 
 # Otros documentos
-FlappyXLS.py
 *.xlsx
+
+# Versiones 
+FlappyXLS.py
+FlappyXLS_v2.py

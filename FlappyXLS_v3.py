@@ -1,9 +1,11 @@
-# En esta versión lo que haremos es que se podrán guardan las filas y columnas en un template predeterminado.
+# En esta versión se encontro un detalle de que las columnas solo llegaban de la A-Z y se busca que llegue de la A-AZ
 
 import streamlit as st
 import pandas as pd
 import json
 import os
+import string
+from itertools import product
 
 st.set_page_config("FlappyXLS", layout="wide")
 
@@ -38,31 +40,27 @@ campos_carta_porte = [
     "Aduana",
     "Orden",
     "ID Origen",
-    "RFC Remitente",
-    "Calle",
-    "Número",
-    "Municipio",
-    "Estado",
-    "Pais",
-    "Código postal",
-    "Colonia",
-    "Localidad",
-    "ID Destinatario",
-    "RFC Destinatario",
-    "Calle",
-    "Número",
-    "Municipio",
-    "Estado",
-    "Pais",
-    "Código postal",
-    "Colonia",
-    "Localidad",
+    "RFC (Remitente)",
+    "Calle (Remitente)",
+    "Número (Remitente)",
+    "Municipio (Remitente)",
+    "Estado (Remitente)",
+    "Pais (Remitente)",
+    "Código postal (Remitente)",
+    "Colonia (Remitente)",
+    "Localidad (Remitente)",
+    "ID (Destinatario)",
+    "RFC (Destinatario)",
+    "Calle (Destinatario)",
+    "Número (Destinatario)",
+    "Municipio (Destinatario)",
+    "Estado (Destinatario)",
+    "Pais (Destinatario)",
+    "Código postal (Destinatario)",
+    "Colonia (Destinatario)",
+    "Localidad (Destinatario)",
     "Distancia Recorrida"
 ]
-
-#Lista de las columnas disponibles (A-Z)
-columnas_disponibles = [chr(i) for i in range (65,91)] #De A a Z
-
 
 # ------------------FUNCIONES------------------
 
@@ -95,6 +93,34 @@ def borrar_template(nombre_template):
     template_path = os.path.join(TEMPLATE_DIR, f"{nombre_template}.json")
     if os.path.exists(template_path):
         os.remove(template_path)
+
+def generate_excel_columns(max_col='AZ'):
+    letters = string.ascii_uppercase
+    columnas = []
+    max_col_reached = False
+
+    for n in range(1,3): #Para caombinaciones de 1 y 2 letras
+        for combo in product(letters, repeat=n):
+            col = ''.join(combo)
+            columnas.append(col)
+            if col == max_col:
+                max_col_reached = True
+                break
+        if max_col_reached:
+            break
+    return columnas
+
+def column_letter_to_index(column_letter):
+    letters = string.ascii_uppercase
+    column_letter = column_letter.upper()
+    result = 0
+    for i, char in enumerate(reversed(column_letter)):
+        result += (letters.index(char) + 1) * (26 ** i)
+    return result - 1 #Restamos 1 para que A=0, B=1
+
+#Lista de las columnas disponibles (A-Z)
+columnas_disponibles = generate_excel_columns('AZ')
+#st.write(columnas_disponibles) #Lo utilizamos para ver hasta donde estaba llegando las columnas
 
 # -----------------SIDEBAR------------------
 #Sidebar para gestionar templates
@@ -162,22 +188,23 @@ else:     #Si se selecciona un template seguir con la lógica actual
                 columna = st.selectbox(
                     f"Columna para {campo}", 
                     columnas_disponibles, 
-                    index = columnas_disponibles.index(template_actual.get(campo, {}).get('columna','A'))
-                    #key=f"columna_{campo}")
-                )
+                    index = columnas_disponibles.index(template_actual.get(campo, {}).get('columna','A')),
+                    key=f"columna_{campo}"
+                    )
+                
             
             with col2:
                 #Precargar la fila del template si existe, de lo contrario usar 1
                 fila = st.number_input(
                     f"Fila para {campo}", 
                     min_value=1, 
-                    value=template_actual.get(campo, {}).get('fila', 1)
-                    #key=f"fila_{campo}"
+                    value=template_actual.get(campo, {}).get('fila', 1),
+                    key=f"fila_{campo}"
                     )
 
             if columna and fila:                
                 #Convertir letra de columna a número de indice (A0,B1,C1)
-                col_num = ord(columna.upper()) - 65
+                col_num = column_letter_to_index(columna)
                 valor = df.iloc[fila - 2, col_num] #Extraer el valor de la celda
                 st.success(f"{campo}: {valor}")
                 carta_porte_info[campo] = valor 

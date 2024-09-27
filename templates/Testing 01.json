@@ -10,5 +10,161 @@
     "Descripción material carga": {
         "columna": "D",
         "fila": 5
+    },
+    "Peso": {
+        "columna": "E",
+        "fila": 5
+    },
+    "ID Unidad de peso": {
+        "columna": "F",
+        "fila": 5
+    },
+    "Clave de Productos y Servicios": {
+        "columna": "G",
+        "fila": 5
+    },
+    "Clave Unidad": {
+        "columna": "H",
+        "fila": 5
+    },
+    "Clave Fracción arancelaria": {
+        "columna": "I",
+        "fila": 5
+    },
+    "UUID Comercio Exterior": {
+        "columna": "J",
+        "fila": 5
+    },
+    "Es material peligroso": {
+        "columna": "K",
+        "fila": 5
+    },
+    "Clave material peligroso": {
+        "columna": "L",
+        "fila": 5
+    },
+    "Tipo de embalaje": {
+        "columna": "M",
+        "fila": 5
+    },
+    "Descripción de embalaje": {
+        "columna": "N",
+        "fila": 5
+    },
+    "Aplica tarifa": {
+        "columna": "O",
+        "fila": 5
+    },
+    "Tarifa": {
+        "columna": "P",
+        "fila": 5
+    },
+    "Importe": {
+        "columna": "Q",
+        "fila": 5
+    },
+    "Importe Base": {
+        "columna": "R",
+        "fila": 5
+    },
+    "Número de pedimento": {
+        "columna": "S",
+        "fila": 5
+    },
+    "Fecha": {
+        "columna": "T",
+        "fila": 5
+    },
+    "Aduana": {
+        "columna": "U",
+        "fila": 5
+    },
+    "Orden": {
+        "columna": "V",
+        "fila": 5
+    },
+    "ID Origen": {
+        "columna": "W",
+        "fila": 5
+    },
+    "RFC (Remitente)": {
+        "columna": "X",
+        "fila": 5
+    },
+    "Calle (Remitente)": {
+        "columna": "Y",
+        "fila": 5
+    },
+    "Número (Remitente)": {
+        "columna": "Z",
+        "fila": 5
+    },
+    "Municipio (Remitente)": {
+        "columna": "AA",
+        "fila": 5
+    },
+    "Estado (Remitente)": {
+        "columna": "AB",
+        "fila": 5
+    },
+    "Pais (Remitente)": {
+        "columna": "AC",
+        "fila": 5
+    },
+    "Código postal (Remitente)": {
+        "columna": "AD",
+        "fila": 5
+    },
+    "Colonia (Remitente)": {
+        "columna": "AE",
+        "fila": 5
+    },
+    "Localidad (Remitente)": {
+        "columna": "AF",
+        "fila": 5
+    },
+    "ID (Destinatario)": {
+        "columna": "AG",
+        "fila": 5
+    },
+    "RFC (Destinatario)": {
+        "columna": "AH",
+        "fila": 5
+    },
+    "Calle (Destinatario)": {
+        "columna": "AI",
+        "fila": 5
+    },
+    "Número (Destinatario)": {
+        "columna": "AJ",
+        "fila": 5
+    },
+    "Municipio (Destinatario)": {
+        "columna": "AK",
+        "fila": 5
+    },
+    "Estado (Destinatario)": {
+        "columna": "AL",
+        "fila": 5
+    },
+    "Pais (Destinatario)": {
+        "columna": "AM",
+        "fila": 5
+    },
+    "Código postal (Destinatario)": {
+        "columna": "AN",
+        "fila": 5
+    },
+    "Colonia (Destinatario)": {
+        "columna": "AO",
+        "fila": 5
+    },
+    "Localidad (Destinatario)": {
+        "columna": "AP",
+        "fila": 5
+    },
+    "Distancia Recorrida": {
+        "columna": "AQ",
+        "fila": 5
     }
 }
