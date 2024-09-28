@@ -1,8 +1,12 @@
 # En esta versión se encontro un detalle de que las columnas solo llegaban de la A-Z y se busca que llegue de la A-AZ
 
+#Se hizo un ajuste para no solicitar la distancia recorrida y calcularla de manera automatica, por eso tarda el JSON, en caso de que no sea de ayuda, solicitarlo de manera manual.
+
 import streamlit as st
 import pandas as pd
 import json
+from dotenv import load_dotenv
+import os
 from utils import(
     generate_excel_columns,
     column_letter_to_index,
@@ -15,6 +19,13 @@ from distance import calcular_distancia_carretera
 
 #Configuración de la página
 st.set_page_config("FlappyXLS", layout="wide")
+
+#Carga las variables del entorno
+load_dotenv()
+
+#Obtiene la API key
+api_key = os.getenv("GOOGLE_MAPS_API_KEY")
+
 
 #Titulo de la aplicación
 st.title("📄 Extracción de información")
@@ -61,8 +72,8 @@ campos_carta_porte = [
     "Pais (Destinatario)",
     "Código postal (Destinatario)",
     "Colonia (Destinatario)",
-    "Localidad (Destinatario)",
-    "Distancia Recorrida"
+    "Localidad (Destinatario)"
+#    "Distancia Recorrida"
 ]
 
 #Lista de las columnas disponibles (A-Z)
@@ -72,6 +83,10 @@ columnas_disponibles = generate_excel_columns('AZ')
 # -----------------SIDEBAR------------------
 #Sidebar para gestionar templates
 st.sidebar.header("Gestión de templates")
+
+#Inicializamos variables para los municipio
+municipio_destinatario = ''
+municipio_remitente = ''
 
 #Seleccionar un template existente o crear uno nuevo
 templates_existentes = listar_templates()
@@ -104,7 +119,6 @@ else:     #Si se selecciona un template seguir con la lógica actual
     #---------------------AREA PRINCIPAL ---------------------------
     #Area principal para configurar el template
     st.subheader("Configura las columnas y las filas para cada campo")
-
     # ------------------EXCEL------------------
 
     #Subir el archivo de excel
@@ -157,6 +171,12 @@ else:     #Si se selecciona un template seguir con la lógica actual
                     st.info(f"{valor}")
                     carta_porte_info[campo] = valor 
 
+                    #Guardamos lo municipios para el calculo de la distancia
+                    if campo == "Municipio (Remitente)":
+                        municipio_remitente=valor
+                    elif campo == "Municipio (Destinatario)":
+                        municipio_destinatario=valor
+
                 else:
                     st.warning(f"Ingresa la columna y fila para {campo}")
 
@@ -165,7 +185,6 @@ else:     #Si se selecciona un template seguir con la lógica actual
                 "columna": columna,
                 "fila": fila
             }
-
 
     col1, col2, col3 = st.columns([1,1,1])
     with col1:
@@ -188,6 +207,18 @@ else:     #Si se selecciona un template seguir con la lógica actual
 
     #Mostrar el JSON generado
     if st.button("Generar JSON"):
+
+        if municipio_remitente and municipio_destinatario:
+            try:
+                distancia, duracion = calcular_distancia_carretera(municipio_remitente, municipio_destinatario, api_key)
+                #st.success(f"La distancia por carretera entre {municipio_remitente} y {municipio_destinatario} es de {distancia} y el tiempo estimado de viaje es de {duracion}")
+
+                #Asignar la distancia al campo "Distancia Recorrida"
+                carta_porte_info["Distancia Recorrida"] = distancia
+
+            except ValueError as e:
+                print(e)    
+                
         carta_porte_json = json.dumps(carta_porte_info, indent=4, ensure_ascii=False)
         st.subheader("Datos extraidos en formato JSON")
         st.code(carta_porte_json, language="json")

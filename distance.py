@@ -28,3 +28,17 @@ def calcular_distancia_carretera(origen, destino, api_key):
     distancia = elemento["distance"]["text"]
     duracion = elemento["duration"]["text"]
     return distancia, duracion
+
+"""
+if __name__ == "__main__":
+    origen = "Cancun"
+    destino = "Tijuana"
+
+    try:
+        distancia, duracion = calcular_distancia_carretera(origen, destino, api_key)
+        print(f"La distancia por carretera entre {origen} y {destino} es de {distancia} y el tiempo estimado de viaje es de {duracion}")
+
+    except ValueError as e:
+        print(e)
+
+"""
