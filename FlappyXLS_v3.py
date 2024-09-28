@@ -23,9 +23,8 @@ st.set_page_config("FlappyXLS", layout="wide")
 #Carga las variables del entorno
 load_dotenv()
 
-#Obtiene la API key
+#Obtiene la API key para el cálculo automático de distancia recorrida
 api_key = os.getenv("GOOGLE_MAPS_API_KEY")
-
 
 #Titulo de la aplicación
 st.title("📄 Extracción de información")
@@ -84,7 +83,7 @@ columnas_disponibles = generate_excel_columns('AZ')
 #Sidebar para gestionar templates
 st.sidebar.header("Gestión de templates")
 
-#Inicializamos variables para los municipio
+#Inicializamos variables para el cálculo automático de la distancia recorrida.
 municipio_destinatario = ''
 municipio_remitente = ''
 
@@ -208,12 +207,10 @@ else:     #Si se selecciona un template seguir con la lógica actual
     #Mostrar el JSON generado
     if st.button("Generar JSON"):
 
+        #Cálculo automático de Distancia Recorrida (Opcional)
         if municipio_remitente and municipio_destinatario:
             try:
                 distancia, duracion = calcular_distancia_carretera(municipio_remitente, municipio_destinatario, api_key)
-                #st.success(f"La distancia por carretera entre {municipio_remitente} y {municipio_destinatario} es de {distancia} y el tiempo estimado de viaje es de {duracion}")
-
-                #Asignar la distancia al campo "Distancia Recorrida"
                 carta_porte_info["Distancia Recorrida"] = distancia
 
             except ValueError as e:
