@@ -1,13 +1,5 @@
-import os
-from dotenv import load_dotenv
 import googlemaps
 from datetime import datetime
-
-#Carga las variables del entorno
-load_dotenv()
-
-#Obtiene la API key
-api_key = os.getenv("GOOGLE_MAPS_API_KEY")
 
 def calcular_distancia_carretera(origen, destino, api_key):
     #Inicializando el cliente de Google maps
@@ -34,11 +26,6 @@ if __name__ == "__main__":
     origen = "Cancun"
     destino = "Tijuana"
 
-    try:
-        distancia, duracion = calcular_distancia_carretera(origen, destino, api_key)
-        print(f"La distancia por carretera entre {origen} y {destino} es de {distancia} y el tiempo estimado de viaje es de {duracion}")
-
-    except ValueError as e:
-        print(e)
+    
 
 """

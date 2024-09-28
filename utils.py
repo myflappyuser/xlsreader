@@ -9,7 +9,6 @@ TEMPLATE_DIR = "templates"
 os.makedirs(TEMPLATE_DIR, exist_ok=True)
 
 # ------------------FUNCIONES------------------
-
 #Función para guardar el template en un archivo JSON
 def guardar_template(nombre_template, template_data):
     template_path = os.path.join(TEMPLATE_DIR, f"{nombre_template}.json")
