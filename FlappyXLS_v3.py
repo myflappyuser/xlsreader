@@ -14,7 +14,7 @@ TEMPLATE_DIR = "templates"
 os.makedirs(TEMPLATE_DIR, exist_ok=True)
 
 #Titulo de la aplicación
-st.title("Extracción de información")
+st.title("📄 Extracción de información")
 
 #Campos de la carta porte
 campos_carta_porte = [
