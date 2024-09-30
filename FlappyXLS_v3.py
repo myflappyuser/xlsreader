@@ -167,29 +167,30 @@ else:     #Si se selecciona un template seguir con la lógica actual
                 "fila": fila
             }
 
-    col1, col2, col3 = st.columns([1,1,1])
-    with col1:
-        #Botón para guardar el template
-        if template_seleccionado == "Nuevo template" and st.button("Guardar nuevo template"):
-            if nombre_template:
-                guardar_template(nombre_template, template_data)
-            else:
-                st.sidebar.error("Ingresa un nombre para el nuevo template")
+        #Se ajusta el indentado para que este dentro del if excel para que solo cuando se cargue el archivo se muestren los botones.
+        col1, col2, col3 = st.columns([1,1,1])
+        with col1:
+                #Botón para guardar el template
+                if template_seleccionado == "Nuevo template" and st.button("Guardar nuevo template"):
+                    if nombre_template:
+                        guardar_template(nombre_template, template_data)
+                    else:
+                        st.sidebar.error("Ingresa un nombre para el nuevo template")
 
-        elif template_seleccionado in templates_existentes and st.button("Guardar cambios del template"):
-            guardar_template(template_seleccionado, template_data)
+                elif template_seleccionado in templates_existentes and st.button("Guardar cambios del template"):
+                    guardar_template(template_seleccionado, template_data)
 
-    with col3:
-        #Botón para borrar el template
-        if template_seleccionado in templates_existentes:
-            if st.button("Borrar template"):
-                borrar_template(template_seleccionado)
-                st.success(f"Template '{template_seleccionado}' eliminado. Favor de recargar la página")
+        with col3:
+                #Botón para borrar el template
+                if template_seleccionado in templates_existentes:
+                    if st.button("Borrar template"):
+                        borrar_template(template_seleccionado)
+                        st.success(f"Template '{template_seleccionado}' eliminado. Favor de recargar la página")
 
-    #Mostrar el JSON generado
-    if st.button("Generar JSON"):
-        carta_porte_json = json.dumps(carta_porte_info, indent=4, ensure_ascii=False)
-        st.subheader("Datos extraidos en formato JSON")
-        st.code(carta_porte_json, language="json")
+            #Mostrar el JSON generado
+        if st.button("Generar JSON"):
+            carta_porte_json = json.dumps(carta_porte_info, indent=4, ensure_ascii=False)
+            st.subheader("Datos extraidos en formato JSON")
+            st.code(carta_porte_json, language="json")
 
-
+    
