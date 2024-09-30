@@ -1,12 +1,12 @@
 #Entorno virtual
 venv/
 ENV/
-env/
+.env
 .venv/
 .env/
 
 # Archivos de configuración 
-_pycache_/
+__pycache__/
 
 # Archivos de sistema
 .DS_Store
