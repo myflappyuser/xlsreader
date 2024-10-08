@@ -1,4 +1,4 @@
-# En esta versión se encontro un detalle de que las columnas solo llegaban de la A-Z y se busca que llegue de la A-AZ
+# En esta versión se considera la generación de un XML y se actualizan los datos solicitados de la carta parte separados por secciones.
 
 import streamlit as st
 import pandas as pd
@@ -11,7 +11,8 @@ from utils import(
     guardar_template,
     cargar_template,
     listar_templates,
-    borrar_template
+    borrar_template,
+    generar_xml
 )
 from distance import calcular_distancia_carretera
 
@@ -23,6 +24,50 @@ st.title("📄 Extracción de información")
 
 #Campos de la carta porte
 campos_carta_porte = [
+   # Atributos del Comprobante
+    "Fecha",
+    "FormaPago",
+    "Moneda",
+    "SubTotal",
+    "Total",
+    "TipoDeComprobante",
+    "Uso de CFDI",
+    "MetodoPago",
+    
+    # Emisor
+    "ID Origen",
+    "RFC Emisor",
+    "Nombre Emisor",
+    "Código Postal Emisor",
+    "Calle Emisor",
+    "Número Emisor",
+    "Colonia Emisor",
+    "Localidad Emisor",
+    "Municipio Emisor",
+    "Estado Emisor",
+    "Pais Emisor",
+    
+    # Receptor
+    "ID Receptor",
+    "RFC Receptor",
+    "Nombre Receptor",
+    "Código Postal Receptor",
+    "Calle Receptor",
+    "Número Receptor",
+    "Colonia Receptor",
+    "Localidad Receptor",
+    "Municipio Receptor",
+    "Estado Receptor",
+    "Pais Receptor",
+    
+    # Complemento CartaPorte
+    "TranspInternac",
+    
+    # Mercancias
+    "BienesTransp",
+    "PesoBruto",
+    "PesoNeto",
+    "UnidadPeso",
     "Cantidad",
     "ID unidad embalaje",
     "Descripción material carga",
@@ -41,34 +86,36 @@ campos_carta_porte = [
     "Importe",
     "Importe Base",
     "Número de pedimento",
-    "Fecha",
     "Aduana",
     "Orden",
-    "ID Origen",
-    "RFC (Remitente)",
-    "Calle (Remitente)",
-    "Número (Remitente)",
-    "Municipio (Remitente)",
-    "Estado (Remitente)",
-    "Pais (Remitente)",
-    "Código postal (Remitente)",
-    "Colonia (Remitente)",
-    "Localidad (Remitente)",
-    "ID (Destinatario)",
-    "RFC (Destinatario)",
-    "Calle (Destinatario)",
-    "Número (Destinatario)",
-    "Municipio (Destinatario)",
-    "Estado (Destinatario)",
-    "Pais (Destinatario)",
-    "Código postal (Destinatario)",
-    "Colonia (Destinatario)",
-    "Localidad (Destinatario)",
+    
+    # Transporte
+    "TipoTransporte",
+    "PermSCT",
+    "TipoVehiculo",
+    "Placa",
+    "RFCChofer",
+    "NombreChofer",
+    "NumPermiso",
+    
+    # Ruta
+    "IdentificacionTramo",
+    
+    # Conceptos
+    "ClaveProdServ",
+    "Unidad",
+    "ValorUnitario",
+    
+    # Impuestos
+    "Total Impuestos Trasladados",
+    
+    # Puedes agregar más campos si es necesario
+    # ...
     "Distancia Recorrida"
 ]
 
 #Lista de las columnas disponibles (A-Z)
-columnas_disponibles = generate_excel_columns('AZ')
+columnas_disponibles = generate_excel_columns('BZ')
 #st.write(columnas_disponibles) #Lo utilizamos para ver hasta donde estaba llegando las columnas
 
 # -----------------SIDEBAR------------------
@@ -126,6 +173,9 @@ else:     #Si se selecciona un template seguir con la lógica actual
         #Crear diccionario para el JSON
         carta_porte_info = {}
 
+        #Inicializar diccionario para campos faltantes
+        campos_faltantes= []
+
         st.subheader("Indica la columna y la fila para cada campo")
         
         #Obtener columna y fila para cada campo
@@ -155,8 +205,14 @@ else:     #Si se selecciona un template seguir con la lógica actual
                     #Convertir letra de columna a número de indice (A0,B1,C1)
                     col_num = column_letter_to_index(columna)
                     valor = df.iloc[fila - 2, col_num] #Extraer el valor de la celda
-                    st.info(f"{valor}")
-                    carta_porte_info[campo] = valor 
+                    
+                    # Se valida que el campo no esta vacio, en caso de estarlo se solicita su ingreso de manera manual.
+                    if pd.isna(valor) or (isinstance(valor, str) and valor.strip()==""):
+                        st.warning(f"{campo} esta vacío. Ingrese el valor manualmente.")
+                        campos_faltantes.append(campo)    
+                    else:
+                        st.info(f"{valor}")
+                        carta_porte_info[campo] = valor 
 
                 else:
                     st.warning(f"Ingresa la columna y fila para {campo}")
@@ -166,6 +222,38 @@ else:     #Si se selecciona un template seguir con la lógica actual
                 "columna": columna,
                 "fila": fila
             }
+
+        #Mostrar inputs para campos faltantes
+        if campos_faltantes:
+            st.subheader("Campos faltantes - ✍🏽 Ingresar datos manualmente ")
+
+            #Dividir la lista de campos faltantes en 2 sublistas.
+            mitad = (len(campos_faltantes) + 1) // 2 # // sirve para dividir solo enteros
+            campos_col1 = campos_faltantes[:mitad]
+            campos_col2 = campos_faltantes[mitad:]
+
+            #Crear dos columnas
+            col_manual1, col_manual2 = st.columns(2)
+
+            #Inputs de la primera fila
+            with col_manual1:
+                for campo in campos_col1:
+                    input_val = st.text_input(f"Ingrese {campo}", key=f"manual_{campo}")
+                # Validar que el usuario haya ingresado algo
+                    if input_val.strip == "":
+                        st.error(f"Debe de ingresar un valor para {campo}")
+                    else:
+                        carta_porte_info[campo] = input_val
+
+            #Inputs de la segunda fila
+            with col_manual2:
+                for campo in campos_col2:
+                    input_val = st.text_input(f"Ingrese {campo}", key=f"manual_{campo}")
+                # Validar que el usuario haya ingresado algo
+                    if input_val.strip == "":
+                        st.error(f"Debe de ingresar un valor para {campo}")
+                    else:
+                        carta_porte_info[campo] = input_val
 
         #Se ajusta el indentado para que este dentro del if excel para que solo cuando se cargue el archivo se muestren los botones.
         col1, col2, col3 = st.columns([1,1,1])
@@ -187,10 +275,53 @@ else:     #Si se selecciona un template seguir con la lógica actual
                         borrar_template(template_seleccionado)
                         st.success(f"Template '{template_seleccionado}' eliminado. Favor de recargar la página")
 
-            #Mostrar el JSON generado
-        if st.button("Generar JSON"):
-            carta_porte_json = json.dumps(carta_porte_info, indent=4, ensure_ascii=False)
-            st.subheader("Datos extraidos en formato JSON")
-            st.code(carta_porte_json, language="json")
 
-    
+        #Opciones para elegir el formato de salida
+        st.subheader("Selecciona el formato de salida")
+        formato_salida = st.radio(
+            "Elige el formato que deseas generar", ("JSON", "XML")
+        )
+
+        if formato_salida == "JSON":
+                #Mostrar el JSON generado
+            if st.button("Generar JSON", key="generar_json"):
+                #Verificar que todos los campos tienen valores
+                campos_vacios = [
+                    campo for campo in campos_carta_porte
+                    if campo not in carta_porte_info 
+                    or pd.isna(carta_porte_info[campo]) 
+                    or carta_porte_info[campo] == ""
+                ]
+                if campos_vacios:
+                    st.error(f"Faltan datos en los siguientes campos: {', '.join(campos_vacios)}")    
+                
+                else:
+                    carta_porte_json = json.dumps(carta_porte_info, indent=4, ensure_ascii=False)
+                    st.subheader("Datos extraidos en formato JSON")
+                    st.code(carta_porte_json, language="json")
+
+            #Mostrar el XML generado
+        elif formato_salida == "XML":
+            if st.button("Generar XML", key="generar_xml"):
+            #Verificar que todos los campos tienen valores
+                campos_vacios = [
+                    campo for campo in campos_carta_porte
+                    if campo not in carta_porte_info 
+                    or pd.isna(carta_porte_info[campo]) 
+                    or carta_porte_info[campo] == ""
+                    ]
+                if campos_vacios:
+                    st.error(f"Faltan datos en los siguientes campos: {', '.join(campos_vacios)}")    
+            
+                else:
+                    carta_porte_xml = generar_xml(carta_porte_info)
+                    st.subheader("Datos extraidos en formato XML")
+                    st.code(carta_porte_xml, language="xml")
+                    
+                    #Opción para descargar el XML
+                    st.download_button(
+                        label='Descargar XML',
+                        data=carta_porte_xml,
+                        file_name="carta_porte_xml",
+                        mime="application/xml"
+                    )

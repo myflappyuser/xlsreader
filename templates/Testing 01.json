@@ -1,4 +1,144 @@
 {
+    "Fecha": {
+        "columna": "B",
+        "fila": 5
+    },
+    "FormaPago": {
+        "columna": "A",
+        "fila": 2
+    },
+    "Moneda": {
+        "columna": "A",
+        "fila": 2
+    },
+    "SubTotal": {
+        "columna": "A",
+        "fila": 2
+    },
+    "Total": {
+        "columna": "A",
+        "fila": 2
+    },
+    "TipoDeComprobante": {
+        "columna": "A",
+        "fila": 2
+    },
+    "Uso de CFDI": {
+        "columna": "A",
+        "fila": 2
+    },
+    "MetodoPago": {
+        "columna": "A",
+        "fila": 2
+    },
+    "ID Origen": {
+        "columna": "W",
+        "fila": 5
+    },
+    "RFC Emisor": {
+        "columna": "A",
+        "fila": 2
+    },
+    "Nombre Emisor": {
+        "columna": "A",
+        "fila": 2
+    },
+    "Código Postal Emisor": {
+        "columna": "A",
+        "fila": 2
+    },
+    "Calle Emisor": {
+        "columna": "A",
+        "fila": 2
+    },
+    "Número Emisor": {
+        "columna": "A",
+        "fila": 2
+    },
+    "Colonia Emisor": {
+        "columna": "A",
+        "fila": 2
+    },
+    "Localidad Emisor": {
+        "columna": "A",
+        "fila": 2
+    },
+    "Municipio Emisor": {
+        "columna": "A",
+        "fila": 2
+    },
+    "Estado Emisor": {
+        "columna": "A",
+        "fila": 2
+    },
+    "Pais Emisor": {
+        "columna": "A",
+        "fila": 2
+    },
+    "ID Receptor": {
+        "columna": "A",
+        "fila": 2
+    },
+    "RFC Receptor": {
+        "columna": "A",
+        "fila": 2
+    },
+    "Nombre Receptor": {
+        "columna": "A",
+        "fila": 2
+    },
+    "Código Postal Receptor": {
+        "columna": "A",
+        "fila": 2
+    },
+    "Calle Receptor": {
+        "columna": "A",
+        "fila": 2
+    },
+    "Número Receptor": {
+        "columna": "A",
+        "fila": 2
+    },
+    "Colonia Receptor": {
+        "columna": "A",
+        "fila": 2
+    },
+    "Localidad Receptor": {
+        "columna": "A",
+        "fila": 2
+    },
+    "Municipio Receptor": {
+        "columna": "A",
+        "fila": 2
+    },
+    "Estado Receptor": {
+        "columna": "A",
+        "fila": 2
+    },
+    "Pais Receptor": {
+        "columna": "A",
+        "fila": 2
+    },
+    "TranspInternac": {
+        "columna": "A",
+        "fila": 2
+    },
+    "BienesTransp": {
+        "columna": "A",
+        "fila": 2
+    },
+    "PesoBruto": {
+        "columna": "A",
+        "fila": 2
+    },
+    "PesoNeto": {
+        "columna": "A",
+        "fila": 2
+    },
+    "UnidadPeso": {
+        "columna": "A",
+        "fila": 2
+    },
     "Cantidad": {
         "columna": "B",
         "fila": 5
@@ -71,10 +211,6 @@
         "columna": "S",
         "fila": 5
     },
-    "Fecha": {
-        "columna": "T",
-        "fila": 5
-    },
     "Aduana": {
         "columna": "U",
         "fila": 5
@@ -83,88 +219,56 @@
         "columna": "V",
         "fila": 5
     },
-    "ID Origen": {
-        "columna": "W",
-        "fila": 5
+    "TipoTransporte": {
+        "columna": "A",
+        "fila": 2
     },
-    "RFC (Remitente)": {
-        "columna": "X",
-        "fila": 5
+    "PermSCT": {
+        "columna": "A",
+        "fila": 2
     },
-    "Calle (Remitente)": {
-        "columna": "Y",
-        "fila": 5
+    "TipoVehiculo": {
+        "columna": "A",
+        "fila": 2
     },
-    "Número (Remitente)": {
-        "columna": "Z",
-        "fila": 5
+    "Placa": {
+        "columna": "A",
+        "fila": 2
     },
-    "Municipio (Remitente)": {
-        "columna": "AA",
-        "fila": 5
+    "RFCChofer": {
+        "columna": "A",
+        "fila": 2
     },
-    "Estado (Remitente)": {
-        "columna": "AB",
-        "fila": 5
+    "NombreChofer": {
+        "columna": "A",
+        "fila": 2
     },
-    "Pais (Remitente)": {
-        "columna": "AC",
-        "fila": 5
+    "NumPermiso": {
+        "columna": "A",
+        "fila": 2
     },
-    "Código postal (Remitente)": {
-        "columna": "AD",
-        "fila": 5
+    "IdentificacionTramo": {
+        "columna": "A",
+        "fila": 2
     },
-    "Colonia (Remitente)": {
-        "columna": "AE",
-        "fila": 5
+    "ClaveProdServ": {
+        "columna": "A",
+        "fila": 2
     },
-    "Localidad (Remitente)": {
-        "columna": "AF",
-        "fila": 5
+    "Unidad": {
+        "columna": "A",
+        "fila": 2
     },
-    "ID (Destinatario)": {
-        "columna": "AG",
-        "fila": 5
+    "ValorUnitario": {
+        "columna": "A",
+        "fila": 2
     },
-    "RFC (Destinatario)": {
-        "columna": "AH",
-        "fila": 5
-    },
-    "Calle (Destinatario)": {
-        "columna": "AI",
-        "fila": 5
-    },
-    "Número (Destinatario)": {
-        "columna": "AJ",
-        "fila": 5
-    },
-    "Municipio (Destinatario)": {
-        "columna": "AK",
-        "fila": 5
-    },
-    "Estado (Destinatario)": {
-        "columna": "AL",
-        "fila": 5
-    },
-    "Pais (Destinatario)": {
-        "columna": "AM",
-        "fila": 5
-    },
-    "Código postal (Destinatario)": {
-        "columna": "AN",
-        "fila": 5
-    },
-    "Colonia (Destinatario)": {
-        "columna": "AO",
-        "fila": 5
-    },
-    "Localidad (Destinatario)": {
-        "columna": "AP",
-        "fila": 5
+    "Total Impuestos Trasladados": {
+        "columna": "A",
+        "fila": 2
     },
     "Distancia Recorrida": {
         "columna": "AQ",
-        "fila": 5
+        "fila": 4
     }
 }

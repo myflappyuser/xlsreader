@@ -1,8 +1,13 @@
+import streamlit as st
 import pandas as pd
 import os
 import string
 import json
 from itertools import product
+
+import xml.etree.ElementTree as ET
+from xml.dom import minidom
+
 
 #Directorio donde se guardarán los templates
 TEMPLATE_DIR = "templates"
@@ -62,3 +67,64 @@ def column_letter_to_index(column_letter):
     for i, char in enumerate(reversed(column_letter)):
         result += (letters.index(char) + 1) * (26 ** i)
     return result - 1 #Restamos 1 para que A=0, B=1
+
+#Función para generar un XML
+def generar_xml(carta_porte_info):
+
+    #Definir namespaces
+    namespaces = {
+        'cfdi': 'http://www.sat.gob.mx/cfd/3',
+        'cartaporte20': 'http://www.sat.gob.mx/cartaporte20'
+    }
+
+    # Registrar namespaces
+    for prefix, uri in namespaces.items():
+        ET.register_namespace(prefix, uri)
+
+    #Crear elemento raíz
+    comprobante_attrib = {
+        'Fecha': str(carta_porte_info.get('Fecha', '')),
+        'FormaPago': str(carta_porte_info.get('FormaPago', '')),
+        'Moneda': str(carta_porte_info.get('Moneda', '')),
+        'SubTotal': str(carta_porte_info.get('SubTotal', '')),
+        'Total': str(carta_porte_info.get('Total', '')),
+        'MetodoPago': str(carta_porte_info.get('MetodoPago', ''))
+    }
+
+    comprobante = ET.Element(f"{{{namespaces['cfdi']}}}Comprobante", attrib=comprobante_attrib)
+    #Emisor
+    emisor = ET.SubElement(comprobante, f"{{{namespaces['cfdi']}}}Emisor", attrib={
+        'RFC': str(carta_porte_info.get('RFC Emisor', '')),
+        'Nombre': str(carta_porte_info.get('Nombre Emisor', '')),
+        'CodigoPostal': str(carta_porte_info.get('Código Postal Emisor', ''))
+    })
+
+    #Receptor
+    receptor = ET.SubElement(comprobante, f"{{{namespaces['cfdi']}}}Receptor", attrib={
+        'RFC': str(carta_porte_info.get('RFC Receptor', '')),
+        'Nombre': str(carta_porte_info.get('Nombre Receptor', '')),
+        'CodigoPostal': str(carta_porte_info.get('Código Postal Receptor', ''))
+    })
+
+    #Origen
+
+    #Destino
+
+    #Mercancías
+
+    #Transporte
+
+    #DatosIdentificadorVehicular
+
+    #Autotransporte
+
+    #Distancia recorrida
+
+    #Conceptos
+
+    #Convertir el árbol XML a una cadena con formato
+    xml_str = ET.tostring(comprobante, encoding='utf-8')
+    reparsed = minidom.parseString(xml_str)
+    pretty_xml = reparsed.toprettyxml(indent=" ")
+
+    return pretty_xml
