@@ -12,4 +12,4 @@ EXPOSE 8501
 # Establecer variables de entorno (opcional)
 ENV GOOGLE_MAPS_API_KEY="AIzaSyDrTYgq2dNLoFiYVVDbKkWohBXsF6VMYto"
 
-CMD ["streamlit","run","FlappyXLS_v3.py","--server.port=8501","--server.address=0.0.0.0"]
+CMD ["streamlit","run","FlappyXLS_v6.py","--server.port=8501","--server.address=0.0.0.0"]
