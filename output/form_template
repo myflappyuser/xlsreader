@@ -1,0 +1,170 @@
+{
+    "Receiver": {
+        "Name": "",
+        "CfdiUse": "",
+        "Rfc": "",
+        "FiscalRegime": "",
+        "TaxZipCode": ""
+    },
+    "CfdiType": "",
+    "NameId": "",
+    "ExpeditionPlace": "",
+    "Exportation": "",
+    "Items": [
+        {
+            "Quantity": "",
+            "ProductCode": "",
+            "UnitCode": "",
+            "Unit": "",
+            "Description": "",
+            "IdentificationNumber": "",
+            "UnitPrice": "",
+            "Subtotal": "",
+            "TaxObject": "",
+            "Total": ""
+        },
+        {
+            "CuentaPredial": "",
+            "Quantity": "",
+            "ProductCode": "",
+            "UnitCode": "",
+            "Unit": "",
+            "Description": "",
+            "IdentificationNumber": "",
+            "UnitPrice": "",
+            "Subtotal": "",
+            "TaxObject": "",
+            "Total": ""
+        }
+    ],
+    "Complemento": {
+        "CartaPorte31": {
+            "ViaEntradaSalida": "",
+            "TranspInternac": "",
+            "RegimenesAduaneros": [
+                {
+                    "RegimenAduanero": ""
+                },
+                {
+                    "RegimenAduanero": ""
+                }
+            ],
+            "EntradaSalidaMerc": "",
+            "PaisOrigenDestino": "",
+            "RegistroISTMO": "",
+            "UbicacionPoloOrigen": "",
+            "UbicacionPoloDestino": "",
+            "Ubicaciones": [
+                {
+                    "TipoUbicacion": "",
+                    "IDUbicacion": "",
+                    "FechaHoraSalidaLlegada": "",
+                    "RFCRemitenteDestinatario": "",
+                    "Domicilio": {
+                        "Pais": "",
+                        "CodigoPostal": "",
+                        "Estado": "",
+                        "Municipio": "",
+                        "Localidad": ""
+                    }
+                },
+                {
+                    "TipoUbicacion": "",
+                    "IDUbicacion": "",
+                    "FechaHoraSalidaLlegada": "",
+                    "DistanciaRecorrida": "",
+                    "RFCRemitenteDestinatario": "",
+                    "Domicilio": {
+                        "Pais": "",
+                        "CodigoPostal": "",
+                        "Estado": "",
+                        "Municipio": "",
+                        "Localidad": ""
+                    }
+                }
+            ],
+            "Mercancias": {
+                "UnidadPeso": "",
+                "LogisticaInversaRecoleccionDevolucion": "",
+                "Mercancia": [
+                    {
+                        "FraccionArancelaria": "",
+                        "FolioImpoVUCEM": "",
+                        "PermisoImportacion": "",
+                        "SectorCOFEPRIS": "",
+                        "TipoMateria": "",
+                        "DescripcionMateria": "",
+                        "BienesTransp": "",
+                        "Descripcion": "",
+                        "Cantidad": "",
+                        "ClaveUnidad": "",
+                        "MaterialPeligroso": "",
+                        "PesoEnKg": "",
+                        "DenominacionGenericaProd": "",
+                        "DenominacionDistintivaProd": "",
+                        "Fabricante": "",
+                        "FechaCaducidad": "",
+                        "LoteMedicamento": "",
+                        "FormaFarmaceutica": "",
+                        "CondicionesEspTransp": "",
+                        "RegistroSanitarioFolioAutorizacion": "",
+                        "DocumentacionAduanera": [
+                            {
+                                "TipoDocumento": "",
+                                "NumPedimento": "",
+                                "RFCImpo": ""
+                            }
+                        ],
+                        "CantidadTransporta": [
+                            {
+                                "Cantidad": "",
+                                "IDOrigen": "",
+                                "IDDestino": ""
+                            }
+                        ]
+                    }
+                ],
+                "Autotransporte": {
+                    "PermSCT": "",
+                    "NumPermisoSCT": "",
+                    "IdentificacionVehicular": {
+                        "ConfigVehicular": "",
+                        "PesoBrutoVehicular": "",
+                        "PlacaVM": "",
+                        "AnioModeloVM": ""
+                    },
+                    "Seguros": {
+                        "AseguraRespCivil": "",
+                        "PolizaRespCivil": ""
+                    },
+                    "Remolques": [
+                        {
+                            "SubTipoRem": "",
+                            "Placa": ""
+                        }
+                    ]
+                }
+            },
+            "FiguraTransporte": [
+                {
+                    "TipoFigura": "",
+                    "RFCFigura": "",
+                    "NumLicencia": "",
+                    "NombreFigura": "",
+                    "Domicilio": {
+                        "Calle": "",
+                        "NumeroExterior": "",
+                        "NumeroInterior": "",
+                        "Colonia": "",
+                        "Localidad": "",
+                        "Referencia": "",
+                        "Municipio": "",
+                        "Estado": "",
+                        "Pais": "",
+                        "CodigoPostal": ""
+                    }
+                }
+            ]
+        }
+    }
+}
